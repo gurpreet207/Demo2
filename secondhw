@@ -1,0 +1,48 @@
+package test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class bank {
+	WebDriver driver;
+		@BeforeTest
+	  	public void SetUp(){
+		System.setProperty("webdriver.gecko.driver","C:\\Desktop_Backup\\Gurpreet\\geckodriver-v0.29.0-win64"
+				+ "\\geckodriver.exe");
+		driver= new FirefoxDriver();
+		}
+		@Test
+		public void headingText() throws Exception{
+		driver.get("https://www.imdb.com");
+		driver.findElement(By.id("suggestion-search")).sendKeys("games of thrones");
+		Thread.sleep(5000);
+		driver.findElement(By.id("suggestion-search")).sendKeys(Keys.ENTER);
+		//driver.findElement(By.xpath("//*[contains(@class,'ipc-lockup-overlay__gradient ipc-lockup-overlay__gradient--linear')]")).click();
+		driver.findElement(By.xpath(".//*[contains(@href,'vi1509866521?ref_=nv_sr_srsg_1')]")).click();
+		Thread.sleep(5000);
+		String heading =driver.findElement(By.xpath(".//*[@class='RelationInfostyles__RelationTitle-sc-1a6joiq-1 iMMyKJ']")).getText();
+		Assert.assertEquals("Game of Thrones (2011)", heading);
+		File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(file, new File("C:\\Desktop_Backup\\Gurpreet\\Screenshot.png"));
+		}
+		
+		@AfterTest
+		public void tearDown(){
+		driver.quit();
+		}
+}
