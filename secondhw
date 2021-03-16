@@ -32,6 +32,7 @@ public class bank {
 		driver.findElement(By.id("suggestion-search")).sendKeys("games of thrones");
 		Thread.sleep(5000);
 		driver.findElement(By.id("suggestion-search")).sendKeys(Keys.ENTER);
+		driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MILLISECONDS) ;
 		//driver.findElement(By.xpath("//*[contains(@class,'ipc-lockup-overlay__gradient ipc-lockup-overlay__gradient--linear')]")).click();
 		driver.findElement(By.xpath(".//*[contains(@href,'vi1509866521?ref_=nv_sr_srsg_1')]")).click();
 		Thread.sleep(5000);
